@@ -1,6 +1,7 @@
 import type { GetStaticProps } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import type { BlogEntity } from "@/infra/entities/Blog";
 import type { BlogData } from "../../features/blog/types/BlogData";
 import { mapEntryToBlogData } from "../../features/blog/utils/getBlogData";
 import { contentfulClient } from "../../infra/contentful/client";
@@ -15,7 +16,9 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
       content_type: "blogPost",
       order: ["-fields.publishDate"],
     });
-    const posts = res.items.map((item) => mapEntryToBlogData(item as any));
+    const posts = res.items.map((item) =>
+      mapEntryToBlogData(item as unknown as BlogEntity),
+    );
     return {
       props: { posts },
       revalidate: 60,
