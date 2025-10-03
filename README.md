@@ -1,4 +1,27 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/pages/api-reference/create-next-app).
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/pages/api-reference/create-next-app) with Contentful CMS integration for blog functionality.
+
+## Environment Setup
+
+Create a `.env.local` file in the project root with the following variables:
+
+```env
+CONTENTFUL_SPACE_ID=your_contentful_space_id_here
+CONTENTFUL_ACCESS_TOKEN=your_contentful_access_token_here
+CONTENTFUL_ENVIRONMENT=master
+```
+
+### Contentful Configuration
+
+This blog requires a Contentful Space with a `blogPost` content type containing these fields:
+
+- `title` (Short text) - Blog post title
+- `slug` (Short text, unique) - URL slug for the post
+- `excerpt` (Long text, optional) - Brief description
+- `body` (Rich text, optional) - Main content
+- `coverImage` (Media, optional) - Cover image
+- `author` (Reference to Author content type, optional) - Post author
+- `tags` (Array of Short text, optional) - Post tags
+- `publishDate` (Date/Time, optional) - Publication date
 
 ## Getting Started
 
@@ -15,6 +38,8 @@ bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+Visit [http://localhost:3000/blog](http://localhost:3000/blog) to see the blog listing page.
 
 You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
 

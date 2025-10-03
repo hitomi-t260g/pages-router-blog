@@ -39,3 +39,31 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# claude
+
+.claude/*
+
+# docs
+
+docs/specs/*
+docs/prd/*
+docs/design/*
+docs/plan/*
+docs/first_plan.md
+docs/rules/*
+docs/guides/*
+docs/guides/sub-agents.md
+docs/guides/sub-agents/*
+
+# rules
+
+rules/*
+rules/ai-development-guide.md
+rules/ai-development-guide/*
+
+# adr
+
+adr/*
+adr/ADR-0000.md
+adr/ADR-0000/*
