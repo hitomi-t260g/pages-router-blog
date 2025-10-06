@@ -1,10 +1,8 @@
 import { Box, Flex, Heading, Image, Text, VStack } from "@chakra-ui/react";
 import type { GetStaticProps } from "next";
 import { useState, useEffect, useCallback } from "react";
-import type { BlogEntity } from "@/infra/entities/Blog";
 import type { BlogData } from "../../features/blog/types/BlogData";
-import { mapEntryToBlogData } from "../../features/blog/utils/getBlogData";
-import { contentfulClient } from "../../infra/contentful/client";
+import { getBlogPosts } from "../../infra/contentful/repository";
 import VideoBackground from "../../features/blog/components/VideoBackground";
 
 type Props = {
@@ -13,16 +11,12 @@ type Props = {
 
 export const getStaticProps: GetStaticProps<Props> = async () => {
   try {
-    const res = await contentfulClient.getEntries({
-      content_type: "blogPost",
-      order: ["-fields.publishDate"],
+    const response = await getBlogPosts({
       limit: 20,
+      order: "-fields.publishDate",
     });
-    const posts = res.items.map((item) =>
-      mapEntryToBlogData(item as unknown as BlogEntity),
-    );
     return {
-      props: { posts },
+      props: { posts: response.items },
       revalidate: 60,
     };
   } catch (error) {
@@ -47,21 +41,16 @@ export default function BlogIndex({ posts: initialPosts }: Props) {
     setLoading(true);
 
     try {
-      const response = await contentfulClient.getEntries({
-        content_type: "blogPost",
-        order: ["-fields.publishDate"],
+      const response = await getBlogPosts({
         limit: 10,
         skip,
+        order: "-fields.publishDate",
       });
 
-      const newPosts = response.items.map((item) =>
-        mapEntryToBlogData(item as unknown as BlogEntity),
-      );
-
-      if (newPosts.length > 0) {
-        setAllPosts((prev) => [...prev, ...newPosts]);
+      if (response.items.length > 0) {
+        setAllPosts((prev) => [...prev, ...response.items]);
         setSkip((prev) => prev + 10);
-        setHasMore(newPosts.length === 10);
+        setHasMore(response.items.length === 10);
       } else {
         setHasMore(false);
       }

@@ -1,8 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
-import { contentfulClient } from "../../../infra/contentful/client";
-import type { BlogEntity } from "../../../infra/entities/Blog";
+import { getBlogPost } from "../../../infra/contentful/repository";
 import type { BlogData } from "../types/BlogData";
-import { mapEntryToBlogData } from "../utils/getBlogData";
 import type { UseGetBlogPostOptions, UseGetBlogPostReturn } from "./types";
 
 /**
@@ -34,7 +32,7 @@ import type { UseGetBlogPostOptions, UseGetBlogPostReturn } from "./types";
 export function useGetBlogPost(
   options: UseGetBlogPostOptions,
 ): UseGetBlogPostReturn {
-  const { slug, include = 10, enabled = true, refetchOnMount = true } = options;
+  const { slug, enabled = true, refetchOnMount = true } = options;
 
   const [post, setPost] = useState<BlogData | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
@@ -50,34 +48,14 @@ export function useGetBlogPost(
       setLoading(true);
       setError(null);
 
-      // Fetch specific blog post by slug
-      const response = await contentfulClient.getEntries({
-        content_type: "blogPost",
-        "fields.slug": slug,
-        limit: 1,
-        include: Math.min(Math.max(0, include), 10) as
-          | 0
-          | 1
-          | 2
-          | 3
-          | 4
-          | 5
-          | 6
-          | 7
-          | 8
-          | 9
-          | 10,
-      });
+      // Fetch specific blog post by slug using repository
+      const post = await getBlogPost(slug);
 
-      if (response.items.length === 0) {
+      if (!post) {
         setError("Post not found");
         setPost(null);
       } else {
-        // Transform data using existing mapper
-        const transformedPost = mapEntryToBlogData(
-          response.items[0] as unknown as BlogEntity,
-        );
-        setPost(transformedPost);
+        setPost(post);
       }
     } catch (err) {
       const errorMessage =
@@ -88,7 +66,7 @@ export function useGetBlogPost(
     } finally {
       setLoading(false);
     }
-  }, [enabled, slug, include]);
+  }, [enabled, slug]);
 
   const refetch = useCallback(() => {
     fetchBlogPost();

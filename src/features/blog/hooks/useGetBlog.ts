@@ -1,8 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
-import { contentfulClient } from "../../../infra/contentful/client";
-import type { BlogEntity } from "../../../infra/entities/Blog";
+import { getBlogPosts } from "../../../infra/contentful/repository";
 import type { BlogData } from "../types/BlogData";
-import { mapEntryToBlogData } from "../utils/getBlogData";
 import type { UseGetBlogOptions, UseGetBlogReturn } from "./types";
 
 /**
@@ -38,7 +36,6 @@ export function useGetBlog(options: UseGetBlogOptions = {}): UseGetBlogReturn {
     limit = 10,
     skip = 0,
     order = "-fields.publishDate",
-    contentType = "blogPost",
     tags = [],
     enabled = true,
     refetchOnMount = true,
@@ -55,28 +52,15 @@ export function useGetBlog(options: UseGetBlogOptions = {}): UseGetBlogReturn {
       setLoading(true);
       setError(null);
 
-      // Build query parameters
-      const queryParams: Record<string, string | number> = {
-        content_type: contentType,
-        order,
+      // Fetch data using repository
+      const response = await getBlogPosts({
         limit,
         skip,
-      };
+        order,
+        tags,
+      });
 
-      // Add tag filtering if specified
-      if (tags.length > 0) {
-        queryParams["fields.tags[in]"] = tags.join(",");
-      }
-
-      // Fetch data from Contentful
-      const response = await contentfulClient.getEntries(queryParams);
-
-      // Transform data using existing mapper
-      const transformedPosts = response.items.map((item) =>
-        mapEntryToBlogData(item as unknown as BlogEntity),
-      );
-
-      setPosts(transformedPosts);
+      setPosts(response.items);
     } catch (err) {
       const errorMessage =
         err instanceof Error ? err.message : "Failed to fetch blog posts";
@@ -85,7 +69,7 @@ export function useGetBlog(options: UseGetBlogOptions = {}): UseGetBlogReturn {
     } finally {
       setLoading(false);
     }
-  }, [enabled, contentType, order, limit, skip, tags]);
+  }, [enabled, order, limit, skip, tags]);
 
   const refetch = useCallback(() => {
     fetchBlogPosts();
