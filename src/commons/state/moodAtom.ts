@@ -1,5 +1,5 @@
 import { atom } from "jotai";
 
-export type Mood = "neutral" | "happy" | "calm" | "energetic" | "sad";
+export type Mood = "calm" | "energetic";
 
-export const moodAtom = atom<Mood>("neutral");
+export const moodAtom = atom<Mood>("calm");

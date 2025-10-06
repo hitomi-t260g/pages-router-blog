@@ -1,6 +1,15 @@
+import {
+  Box,
+  Container,
+  Heading,
+  HStack,
+  Image,
+  Separator,
+  Text,
+  VStack,
+} from "@chakra-ui/react";
 import type { Document } from "@contentful/rich-text-types";
 import type { GetStaticPaths, GetStaticProps } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { RichTextRenderer } from "../../features/blog/components/RichTextRenderer";
 import type { BlogData } from "../../features/blog/types/BlogData";
@@ -62,153 +71,164 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
 
 export default function BlogPostPage({ post }: Props) {
   return (
-    <div style={{ padding: "2rem", maxWidth: "800px", margin: "0 auto" }}>
-      {/* パンくずナビゲーション */}
-      <nav style={{ marginBottom: "2rem", fontSize: "0.9em" }}>
-        <Link href="/" style={{ color: "#0066cc", textDecoration: "none" }}>
-          Home
-        </Link>
-        <span style={{ margin: "0 0.5rem", color: "#666" }}>/</span>
-        <Link href="/blog" style={{ color: "#0066cc", textDecoration: "none" }}>
-          Blog
-        </Link>
-        <span style={{ margin: "0 0.5rem", color: "#666" }}>/</span>
-        <span style={{ color: "#666" }}>{post.title}</span>
-      </nav>
+    <Box
+      minH="100vh"
+      bg="var(--background, #ffffff)"
+      transition="background-color 0.3s ease"
+    >
+      <Container maxW="4xl" py={8}>
+        <VStack gap={8} alignItems="stretch">
+          {/* パンくずナビゲーション */}
+          <HStack gap={2} fontSize="sm" color="gray.600">
+            <Link href="/">
+              <Text color="brand.600" _hover={{ color: "brand.700" }}>
+                Home
+              </Text>
+            </Link>
+            <Text>/</Text>
+            <Link href="/blog">
+              <Text color="brand.600" _hover={{ color: "brand.700" }}>
+                Blog
+              </Text>
+            </Link>
+            <Text>/</Text>
+            <Text>{post.title}</Text>
+          </HStack>
 
-      <article>
-        {/* カバー画像 */}
-        {post.coverUrl && (
-          <Image
-            src={post.coverUrl}
-            alt={post.title}
-            width={800}
-            height={400}
-            style={{
-              width: "100%",
-              height: "400px",
-              objectFit: "cover",
-              borderRadius: "8px",
-              marginBottom: "2rem",
-            }}
-            priority
-          />
-        )}
+          <Box as="article">
+            <VStack gap={6} alignItems="stretch">
+              {/* カバー画像 */}
+              {post.coverUrl && (
+                <Image
+                  src={post.coverUrl}
+                  alt={post.title}
+                  borderRadius="lg"
+                  w="full"
+                  h="400px"
+                  objectFit="cover"
+                />
+              )}
 
-        {/* 記事タイトル */}
-        <h1
-          style={{
-            fontSize: "2.5em",
-            fontWeight: "bold",
-            marginBottom: "1rem",
-            lineHeight: "1.2",
-          }}
-        >
-          {post.title}
-        </h1>
+              {/* 記事タイトル */}
+              <Heading
+                as="h1"
+                size="4xl"
+                color="brand.700"
+                textAlign="center"
+                lineHeight="shorter"
+              >
+                {post.title}
+              </Heading>
 
-        {/* メタデータ */}
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            marginBottom: "2rem",
-            padding: "1rem 0",
-            borderBottom: "1px solid #eee",
-            fontSize: "0.95em",
-            color: "#666",
-          }}
-        >
-          {post.authorName && (
-            <span style={{ marginRight: "1rem" }}>
-              <strong>By:</strong> {post.authorName}
-            </span>
-          )}
-          {post.publishDate && (
-            <span style={{ marginRight: "1rem" }}>
-              <strong>Published:</strong>{" "}
-              {new Date(post.publishDate).toLocaleDateString()}
-            </span>
-          )}
-        </div>
+              {/* メタデータ */}
+              <VStack gap={4}>
+                <HStack gap={6} fontSize="md" color="gray.600" justify="center">
+                  {post.authorName && (
+                    <Text>
+                      <Text as="span" fontWeight="semibold">
+                        By:
+                      </Text>{" "}
+                      {post.authorName}
+                    </Text>
+                  )}
+                  {post.publishDate && (
+                    <Text>
+                      <Text as="span" fontWeight="semibold">
+                        Published:
+                      </Text>{" "}
+                      {new Date(post.publishDate).toLocaleDateString()}
+                    </Text>
+                  )}
+                </HStack>
+                <Separator />
+              </VStack>
 
-        {/* タグ */}
-        {post.tags && post.tags.length > 0 && (
-          <div style={{ marginBottom: "2rem" }}>
-            {post.tags.map((tag) => (
-              <span
-                key={tag}
-                style={{
-                  display: "inline-block",
-                  backgroundColor: "#f0f0f0",
-                  color: "#666",
-                  padding: "0.3rem 0.8rem",
-                  borderRadius: "20px",
-                  fontSize: "0.85em",
-                  marginRight: "0.5rem",
-                  marginBottom: "0.5rem",
+              {/* タグ */}
+              {post.tags && post.tags.length > 0 && (
+                <HStack gap={2} flexWrap="wrap" justify="center">
+                  {post.tags.map((tag) => (
+                    <Box
+                      key={tag}
+                      px={4}
+                      py={2}
+                      bg="brand.100"
+                      color="brand.700"
+                      fontSize="sm"
+                      borderRadius="full"
+                      fontWeight="medium"
+                    >
+                      #{tag}
+                    </Box>
+                  ))}
+                </HStack>
+              )}
+
+              {/* 概要 */}
+              {post.excerpt && (
+                <Box
+                  p={6}
+                  bg="brand.50"
+                  borderLeft="4px solid"
+                  borderLeftColor="brand.500"
+                  borderRadius="md"
+                  fontStyle="italic"
+                  fontSize="lg"
+                  color="gray.700"
+                >
+                  {post.excerpt}
+                </Box>
+              )}
+
+              {/* 記事本文（Rich Text） */}
+              <Box
+                fontSize="lg"
+                lineHeight="tall"
+                color="gray.800"
+                css={{
+                  "& h1, & h2, & h3": {
+                    color: "var(--brand-600)",
+                    fontWeight: "bold",
+                    marginTop: "2rem",
+                    marginBottom: "1rem",
+                  },
+                  "& a": {
+                    color: "var(--brand-500)",
+                    textDecoration: "underline",
+                  },
+                  "& a:hover": {
+                    color: "var(--brand-600)",
+                  },
                 }}
               >
-                #{tag}
-              </span>
-            ))}
-          </div>
-        )}
+                {post.body ? (
+                  <RichTextRenderer document={post.body as Document} />
+                ) : (
+                  <Text>記事の本文がありません。</Text>
+                )}
+              </Box>
+            </VStack>
+          </Box>
 
-        {/* 概要 */}
-        {post.excerpt && (
-          <div
-            style={{
-              fontSize: "1.1em",
-              fontStyle: "italic",
-              color: "#555",
-              marginBottom: "2rem",
-              padding: "1rem",
-              backgroundColor: "#f9f9f9",
-              borderLeft: "4px solid #0066cc",
-              borderRadius: "4px",
-            }}
+          {/* フッター */}
+          <Box
+            pt={8}
+            borderTop="1px solid"
+            borderTopColor="gray.200"
+            textAlign="center"
           >
-            {post.excerpt}
-          </div>
-        )}
-
-        {/* 記事本文（Rich Text） */}
-        <div
-          style={{
-            lineHeight: "1.8",
-            fontSize: "1.1em",
-            color: "#333",
-          }}
-        >
-          {post.body ? (
-            <RichTextRenderer document={post.body as Document} />
-          ) : (
-            <p>記事の本文がありません。</p>
-          )}
-        </div>
-      </article>
-
-      {/* フッター */}
-      <footer
-        style={{
-          marginTop: "3rem",
-          paddingTop: "2rem",
-          borderTop: "1px solid #eee",
-          textAlign: "center",
-        }}
-      >
-        <Link
-          href="/blog"
-          style={{
-            color: "#0066cc",
-            textDecoration: "none",
-            fontSize: "1.1em",
-          }}
-        >
-          ← ブログ一覧に戻る
-        </Link>
-      </footer>
-    </div>
+            <Link href="/blog">
+              <Text
+                color="brand.600"
+                fontSize="lg"
+                fontWeight="semibold"
+                _hover={{ color: "brand.700", textDecoration: "underline" }}
+              >
+                ← ブログ一覧に戻る
+              </Text>
+            </Link>
+          </Box>
+        </VStack>
+      </Container>
+    </Box>
   );
 }

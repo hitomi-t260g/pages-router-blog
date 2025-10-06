@@ -1,5 +1,13 @@
+import {
+  Box,
+  Container,
+  Heading,
+  HStack,
+  Image,
+  Text,
+  VStack,
+} from "@chakra-ui/react";
 import type { GetStaticProps } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import type { BlogEntity } from "@/infra/entities/Blog";
 import type { BlogData } from "../../features/blog/types/BlogData";
@@ -34,85 +42,109 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 
 export default function BlogIndex({ posts }: Props) {
   return (
-    <div style={{ padding: "2rem", maxWidth: "800px", margin: "0 auto" }}>
-      <h1>Blog</h1>
-      {posts.length === 0 ? (
-        <p>No blog posts found.</p>
-      ) : (
-        <ul style={{ listStyle: "none", padding: 0 }}>
-          {posts.map((post) => (
-            <li
-              key={post.id}
-              style={{
-                marginBottom: "2rem",
-                padding: "1rem",
-                border: "1px solid #eee",
-                borderRadius: "8px",
-              }}
-            >
-              <Link
-                href={`/blog/${post.slug}`}
-                style={{ textDecoration: "none", color: "inherit" }}
-              >
-                <article>
-                  {post.coverUrl && (
-                    <Image
-                      src={post.coverUrl}
-                      alt={post.title}
-                      width={800}
-                      height={200}
-                      style={{
-                        width: "100%",
-                        height: "200px",
-                        objectFit: "cover",
-                        borderRadius: "4px",
-                        marginBottom: "1rem",
-                      }}
-                    />
-                  )}
-                  <h2 style={{ marginBottom: "0.5rem", color: "#0066cc" }}>
-                    {post.title}
-                  </h2>
-                  {post.excerpt && (
-                    <p style={{ color: "#666", marginBottom: "0.5rem" }}>
-                      {post.excerpt}
-                    </p>
-                  )}
-                  <div style={{ fontSize: "0.9em", color: "#888" }}>
-                    {post.authorName && <span>By {post.authorName}</span>}
-                    {post.publishDate && post.authorName && <span> • </span>}
-                    {post.publishDate && (
-                      <span>
-                        {new Date(post.publishDate).toLocaleDateString()}
-                      </span>
-                    )}
-                  </div>
-                  {post.tags && post.tags.length > 0 && (
-                    <div style={{ marginTop: "0.5rem" }}>
-                      {post.tags.map((tag) => (
-                        <span
-                          key={tag}
-                          style={{
-                            display: "inline-block",
-                            backgroundColor: "#f0f0f0",
-                            color: "#666",
-                            padding: "0.2rem 0.5rem",
-                            borderRadius: "4px",
-                            fontSize: "0.8em",
-                            marginRight: "0.5rem",
+    <Box
+      minH="100vh"
+      bg="var(--background, #ffffff)"
+      transition="background-color 0.3s ease"
+    >
+      <Container maxW="4xl" py={8}>
+        <VStack gap={8} alignItems="stretch">
+          <Heading as="h1" size="3xl" color="brand.600" textAlign="center">
+            Blog
+          </Heading>
+
+          {posts.length === 0 ? (
+            <Text textAlign="center" color="gray.600" fontSize="lg">
+              No blog posts found.
+            </Text>
+          ) : (
+            <VStack gap={6} alignItems="stretch">
+              {posts.map((post) => (
+                <Box
+                  key={post.id}
+                  p={6}
+                  border="1px solid"
+                  borderColor="gray.200"
+                  borderRadius="lg"
+                  _hover={{
+                    borderColor: "brand.300",
+                    shadow: "md",
+                    transform: "translateY(-2px)",
+                    bg: "var(--background-secondary, #f8f9fa)",
+                  }}
+                  transition="all 0.2s"
+                >
+                  <Link
+                    href={`/blog/${post.slug}`}
+                    style={{ textDecoration: "none" }}
+                  >
+                    <VStack alignItems="stretch" gap={4}>
+                      {post.coverUrl && (
+                        <Image
+                          src={post.coverUrl}
+                          alt={post.title}
+                          borderRadius="md"
+                          w="full"
+                          h="200px"
+                          objectFit="cover"
+                        />
+                      )}
+                      <Heading
+                        as="h2"
+                        size="lg"
+                        color="brand.600"
+                        _hover={{ color: "brand.700" }}
+                      >
+                        {post.title}
+                      </Heading>
+                      {post.excerpt && (
+                        <Text
+                          color="gray.600"
+                          fontSize="md"
+                          css={{
+                            display: "-webkit-box",
+                            WebkitLineClamp: 3,
+                            WebkitBoxOrient: "vertical",
+                            overflow: "hidden",
                           }}
                         >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                  )}
-                </article>
-              </Link>
-            </li>
-          ))}
-        </ul>
-      )}
-    </div>
+                          {post.excerpt}
+                        </Text>
+                      )}
+                      <HStack gap={4} fontSize="sm" color="gray.500">
+                        {post.authorName && <Text>By {post.authorName}</Text>}
+                        {post.publishDate && (
+                          <Text>
+                            {new Date(post.publishDate).toLocaleDateString()}
+                          </Text>
+                        )}
+                      </HStack>
+                      {post.tags && post.tags.length > 0 && (
+                        <HStack gap={2} flexWrap="wrap">
+                          {post.tags.map((tag) => (
+                            <Box
+                              key={tag}
+                              px={3}
+                              py={1}
+                              bg="brand.100"
+                              color="brand.700"
+                              fontSize="sm"
+                              borderRadius="full"
+                              fontWeight="medium"
+                            >
+                              {tag}
+                            </Box>
+                          ))}
+                        </HStack>
+                      )}
+                    </VStack>
+                  </Link>
+                </Box>
+              ))}
+            </VStack>
+          )}
+        </VStack>
+      </Container>
+    </Box>
   );
 }
