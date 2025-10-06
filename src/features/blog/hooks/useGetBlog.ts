@@ -36,6 +36,7 @@ import type { UseGetBlogOptions, UseGetBlogReturn } from "./types";
 export function useGetBlog(options: UseGetBlogOptions = {}): UseGetBlogReturn {
   const {
     limit = 10,
+    skip = 0,
     order = "-fields.publishDate",
     contentType = "blogPost",
     tags = [],
@@ -59,6 +60,7 @@ export function useGetBlog(options: UseGetBlogOptions = {}): UseGetBlogReturn {
         content_type: contentType,
         order,
         limit,
+        skip,
       };
 
       // Add tag filtering if specified
@@ -83,7 +85,7 @@ export function useGetBlog(options: UseGetBlogOptions = {}): UseGetBlogReturn {
     } finally {
       setLoading(false);
     }
-  }, [enabled, contentType, order, limit, tags]);
+  }, [enabled, contentType, order, limit, skip, tags]);
 
   const refetch = useCallback(() => {
     fetchBlogPosts();

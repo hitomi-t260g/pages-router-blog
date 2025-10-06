@@ -16,6 +16,7 @@ export interface BaseHookOptions {
 // useGetBlog Hook Types
 export interface UseGetBlogOptions extends BaseHookOptions {
   limit?: number;
+  skip?: number;
   order?: string;
   contentType?: string;
   tags?: string[];
