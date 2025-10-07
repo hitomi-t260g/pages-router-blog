@@ -7,7 +7,7 @@ export default function VideoBackground() {
   const getVideoFilter = () => {
     switch (mood) {
       case "energetic":
-        return "sepia(0.3) saturate(1.2) hue-rotate(180deg) brightness(0.8)";
+        return "sepia(0.3) saturate(1.2) hue-rotate(180deg) brightness(1.5)";
       case "calm":
         return "sepia(0.5) saturate(1.5) hue-rotate(30deg) brightness(0.9)";
       default:

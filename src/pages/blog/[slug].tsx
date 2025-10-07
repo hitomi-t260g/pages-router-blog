@@ -76,19 +76,13 @@ export default function BlogPostPage({ post }: Props) {
       bg="var(--background, #ffffff)"
       transition="background-color 0.3s ease"
     >
-      <Container maxW="4xl" py={8}>
+      <Container maxW="4xl" py={8} px={4} mx="auto">
         <VStack gap={8} alignItems="stretch">
           {/* パンくずナビゲーション */}
           <HStack gap={2} fontSize="sm" color="gray.600">
             <Link href="/">
               <Text color="brand.600" _hover={{ color: "brand.700" }}>
                 Home
-              </Text>
-            </Link>
-            <Text>/</Text>
-            <Link href="/blog">
-              <Text color="brand.600" _hover={{ color: "brand.700" }}>
-                Blog
               </Text>
             </Link>
             <Text>/</Text>

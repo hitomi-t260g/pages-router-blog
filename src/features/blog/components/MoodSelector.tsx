@@ -13,32 +13,25 @@ export default function MoodSelector() {
 
   return (
     <Box
-      p={6}
+      p={4}
       bg="var(--background-secondary, #f8f9fa)"
       borderRadius="xl"
       border="2px solid"
       borderColor="brand.200"
       transition="all 0.3s ease"
     >
-      <VStack gap={4} alignItems="flex-start">
+      <VStack gap={4} alignItems="center">
         <Text fontSize="lg" fontWeight="semibold" color="brand.700">
           今日の気分は？
         </Text>
-        <HStack gap={3} flexWrap="wrap">
+        <HStack gap={2} flexWrap="wrap">
           {MOODS.map((m) => (
             <Button
               key={m.key}
               onClick={() => setMood(m.key)}
-              variant={mood === m.key ? "solid" : "outline"}
-              colorPalette={mood === m.key ? "brand" : "brand"}
-              color={mood === m.key ? undefined : "brand.700"}
+              variant={mood === m.key ? "solid" : "surface"}
+              colorPalette="gray"
               size="md"
-              _hover={{
-                transform: "translateY(-1px)",
-                shadow: "md",
-                color: "#E4E4E7",
-              }}
-              transition="all 0.2s"
             >
               {m.key === "calm" ? <Annoyed /> : <Smile />}
               {m.label}
