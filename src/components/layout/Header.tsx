@@ -16,18 +16,8 @@ export default function Header() {
       borderBottom="1px solid rgba(255,255,255,0.1)"
       zIndex={1000}
     >
-      <Flex
-        h="full"
-        alignItems="center"
-        justifyContent="space-between"
-        px={4}
-      >
-        <Heading
-          as="h1"
-          fontSize="xl"
-          fontFamily="serif"
-          color="white"
-        >
+      <Flex h="full" alignItems="center" justifyContent="space-between" px={4}>
+        <Heading as="h1" fontSize="xl" fontFamily="serif" color="white">
           My Blog
         </Heading>
 

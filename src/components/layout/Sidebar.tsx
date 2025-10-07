@@ -1,4 +1,4 @@
-import { Box, VStack, Heading, Text } from "@chakra-ui/react";
+import { Box, Heading, Text, VStack } from "@chakra-ui/react";
 import MoodSelector from "../../features/blog/components/MoodSelector";
 import styles from "./Sidebar.module.css";
 
@@ -41,12 +41,15 @@ export default function Sidebar() {
         </Box>
 
         {/* 将来の拡張用スペース */}
-        <Box flex={1}>
-          {/* ここに追加のナビゲーションや設定を配置可能 */}
-        </Box>
+        <Box flex={1}>{/* ここに追加のナビゲーションや設定を配置可能 */}</Box>
 
         {/* フッター情報 */}
-        <Box textAlign="center" py={4} borderTop="1px solid" borderColor="gray.200">
+        <Box
+          textAlign="center"
+          py={4}
+          borderTop="1px solid"
+          borderColor="gray.200"
+        >
           <Text fontSize="xs" color="gray.500">
             © {new Date().getFullYear()} My Blog
           </Text>

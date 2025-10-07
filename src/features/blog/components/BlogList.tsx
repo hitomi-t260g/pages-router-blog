@@ -1,8 +1,8 @@
 import { Box, Flex, Heading, Image, Text, VStack } from "@chakra-ui/react";
-import { useState, useCallback } from "react";
-import type { BlogData } from "../types/BlogData";
+import { useCallback, useState } from "react";
 import { getBlogPosts } from "../../../infra/contentful/repository";
 import { useInfiniteScroll } from "../hooks/useInfiniteScroll";
+import type { BlogData } from "../types/BlogData";
 
 interface BlogListProps {
   initialPosts: BlogData[];
@@ -104,10 +104,9 @@ export default function BlogList({ initialPosts }: BlogListProps) {
                     ? new Date(post.publishDate).toLocaleDateString("ja-JP", {
                         year: "numeric",
                         month: "numeric",
-                        day: "numeric"
+                        day: "numeric",
                       })
-                    : "日付不明"
-                  }
+                    : "日付不明"}
                 </Text>
                 <Text mt={2} color="gray.700">
                   {post.excerpt || "概要がありません"}
@@ -129,7 +128,10 @@ export default function BlogList({ initialPosts }: BlogListProps) {
         {/* 終了メッセージ */}
         {!hasMore && allPosts.length > 0 && (
           <Box textAlign="center" py={4}>
-            <Text color="rgba(255,255,255,0.7)" textShadow="0 1px 4px rgba(0,0,0,0.5)">
+            <Text
+              color="rgba(255,255,255,0.7)"
+              textShadow="0 1px 4px rgba(0,0,0,0.5)"
+            >
               すべての記事を表示しました🙌
             </Text>
           </Box>

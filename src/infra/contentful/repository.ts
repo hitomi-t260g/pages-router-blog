@@ -1,8 +1,7 @@
-import type { Entry } from "contentful";
-import { contentfulClient } from "./client";
-import type { BlogEntity } from "../entities/Blog";
 import type { BlogData } from "../../features/blog/types/BlogData";
 import { mapEntryToBlogData } from "../../features/blog/utils/getBlogData";
+import type { BlogEntity } from "../entities/Blog";
+import { contentfulClient } from "./client";
 
 export interface GetBlogPostsOptions {
   limit?: number;

@@ -1,11 +1,11 @@
 import { IconButton } from "@chakra-ui/react";
 import { useAtom } from "jotai";
+import { Annoyed, Smile } from "lucide-react";
 import { type Mood, moodAtom } from "../../../commons/state/moodAtom";
-import { Smile, Annoyed } from "lucide-react";
 
 const MOOD_ICONS: Record<Mood, React.ReactNode> = {
-  calm: <Annoyed/>,
-  energetic: <Smile/>,
+  calm: <Annoyed />,
+  energetic: <Smile />,
 };
 
 export default function MoodIconButton() {

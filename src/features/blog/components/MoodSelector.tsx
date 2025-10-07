@@ -1,7 +1,7 @@
-import { type Mood, moodAtom } from "@/commons/state/moodAtom";
-import { useAtom } from "jotai";
 import { Box, Button, HStack, Text, VStack } from "@chakra-ui/react";
+import { useAtom } from "jotai";
 import { Annoyed, Smile } from "lucide-react";
+import { type Mood, moodAtom } from "@/commons/state/moodAtom";
 
 const MOODS: { key: Mood; label: string; emoji: string }[] = [
   { key: "calm", label: "穏やか", emoji: "😌" },
@@ -40,7 +40,7 @@ export default function MoodSelector() {
               }}
               transition="all 0.2s"
             >
-              {m.key === "calm" ? <Annoyed/> : <Smile/>}
+              {m.key === "calm" ? <Annoyed /> : <Smile />}
               {m.label}
             </Button>
           ))}

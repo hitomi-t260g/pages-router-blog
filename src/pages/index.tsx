@@ -1,13 +1,13 @@
 import { Box, Heading } from "@chakra-ui/react";
 import type { GetStaticProps } from "next";
 import Head from "next/head";
+import Header from "../components/layout/Header";
+import Sidebar from "../components/layout/Sidebar";
+import sidebarStyles from "../components/layout/Sidebar.module.css";
+import BlogList from "../features/blog/components/BlogList";
+import VideoBackground from "../features/blog/components/VideoBackground";
 import type { BlogData } from "../features/blog/types/BlogData";
 import { getBlogPosts } from "../infra/contentful/repository";
-import VideoBackground from "../features/blog/components/VideoBackground";
-import BlogList from "../features/blog/components/BlogList";
-import Sidebar from "../components/layout/Sidebar";
-import Header from "../components/layout/Header";
-import sidebarStyles from "../components/layout/Sidebar.module.css";
 
 type Props = {
   posts: BlogData[];
@@ -53,7 +53,7 @@ export default function Home({ posts }: Props) {
         <Sidebar />
 
         {/* メインコンテンツ */}
-        <Box 
+        <Box
           className={sidebarStyles.mainContent}
           position="relative"
           h="100vh"
@@ -63,13 +63,13 @@ export default function Home({ posts }: Props) {
         >
           {/* 背景動画 */}
           <VideoBackground />
-          
+
           {/* Blog タイトル */}
-          <Box 
-            as="header" 
-            textAlign="center" 
-            py={8} 
-            position="relative" 
+          <Box
+            as="header"
+            textAlign="center"
+            py={8}
+            position="relative"
             zIndex={1}
             flexShrink={0}
           >
@@ -85,12 +85,7 @@ export default function Home({ posts }: Props) {
           </Box>
 
           {/* ブログ一覧スクロール領域 */}
-          <Box
-            position="relative"
-            zIndex={1}
-            flex={1}
-            overflow="auto"
-          >
+          <Box position="relative" zIndex={1} flex={1} overflow="auto">
             <BlogList initialPosts={posts} />
           </Box>
         </Box>
