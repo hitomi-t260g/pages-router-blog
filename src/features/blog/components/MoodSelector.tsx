@@ -1,6 +1,7 @@
-import { Box, Button, HStack, Text, VStack } from "@chakra-ui/react";
+import { type Mood, moodAtom } from "@/commons/state/moodAtom";
 import { useAtom } from "jotai";
-import { type Mood, moodAtom } from "../../../commons/state/moodAtom";
+import { Box, Button, HStack, Text, VStack } from "@chakra-ui/react";
+import { Annoyed, Smile } from "lucide-react";
 
 const MOODS: { key: Mood; label: string; emoji: string }[] = [
   { key: "calm", label: "穏やか", emoji: "😌" },
@@ -29,17 +30,17 @@ export default function MoodSelector() {
               key={m.key}
               onClick={() => setMood(m.key)}
               variant={mood === m.key ? "solid" : "outline"}
-              colorPalette={mood === m.key ? "brand" : "gray"}
+              colorPalette={mood === m.key ? "brand" : "brand"}
+              color={mood === m.key ? undefined : "brand.700"}
               size="md"
               _hover={{
                 transform: "translateY(-1px)",
                 shadow: "md",
+                color: "#E4E4E7",
               }}
               transition="all 0.2s"
             >
-              <Text fontSize="xl" mr={2}>
-                {m.emoji}
-              </Text>
+              {m.key === "calm" ? <Annoyed/> : <Smile/>}
               {m.label}
             </Button>
           ))}

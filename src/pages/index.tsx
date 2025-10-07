@@ -1,16 +1,38 @@
-import {
-  Box,
-  Container,
-  Heading,
-  Separator,
-  Text,
-  VStack,
-} from "@chakra-ui/react";
+import { Box, Heading } from "@chakra-ui/react";
+import type { GetStaticProps } from "next";
 import Head from "next/head";
-import Link from "next/link";
-import MoodSelector from "../features/blog/components/MoodSelector";
+import type { BlogData } from "../features/blog/types/BlogData";
+import { getBlogPosts } from "../infra/contentful/repository";
+import VideoBackground from "../features/blog/components/VideoBackground";
+import BlogList from "../features/blog/components/BlogList";
+import Sidebar from "../components/layout/Sidebar";
+import Header from "../components/layout/Header";
+import sidebarStyles from "../components/layout/Sidebar.module.css";
 
-export default function Home() {
+type Props = {
+  posts: BlogData[];
+};
+
+export const getStaticProps: GetStaticProps<Props> = async () => {
+  try {
+    const response = await getBlogPosts({
+      limit: 20,
+      order: "-fields.publishDate",
+    });
+    return {
+      props: { posts: response.items },
+      revalidate: 60,
+    };
+  } catch (error) {
+    console.error("Error fetching blog posts:", error);
+    return {
+      props: { posts: [] },
+      revalidate: 60,
+    };
+  }
+};
+
+export default function Home({ posts }: Props) {
   return (
     <>
       <Head>
@@ -23,50 +45,33 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Box
-        minH="100vh"
-        bg="var(--background, #ffffff)"
-        transition="background-color 0.3s ease"
-      >
-        <Container maxW="6xl" py={8}>
-          <VStack gap={8} alignItems="stretch">
-            <Box textAlign="center">
-              <Heading as="h1" size="4xl" mb={4} color="brand.600">
-                My Blog
-              </Heading>
-              <Text fontSize="lg" color="gray.600">
-                パーソナライズされたブログ体験へようこそ
-              </Text>
-            </Box>
+      <Box position="relative" h="100vh" w="100%">
+        {/* 背景動画 */}
+        <VideoBackground />
 
-            <Separator />
+        {/* ヘッダー (モバイルのみ表示) */}
+        <Header />
 
-            <Box>
-              <MoodSelector />
-            </Box>
+        {/* サイドバー (デスクトップのみ表示) */}
+        <Sidebar />
 
-            <Separator />
+        {/* メインコンテンツ */}
+        <Box className={sidebarStyles.mainContent}>
+          {/* Blog タイトル */}
+          <Box as="header" textAlign="center" py={8} mb={4}>
+            <Heading
+              as="h1"
+              fontSize="6xl"
+              fontFamily="serif"
+              color="white"
+              textShadow="0 4px 8px rgba(0,0,0,0.7)"
+            >
+              Blog
+            </Heading>
+          </Box>
 
-            <Box>
-              <Heading as="h2" size="2xl" mb={4} color="brand.600">
-                最新記事
-              </Heading>
-              <Text mb={4}>
-                気分に合わせてテーマが変わるブログをお楽しみください。
-              </Text>
-              <Link href="/blog">
-                <Text
-                  color="brand.500"
-                  fontWeight="semibold"
-                  _hover={{ color: "brand.600", textDecoration: "underline" }}
-                  cursor="pointer"
-                >
-                  記事一覧へ →
-                </Text>
-              </Link>
-            </Box>
-          </VStack>
-        </Container>
+          <BlogList initialPosts={posts} />
+        </Box>
       </Box>
     </>
   );
