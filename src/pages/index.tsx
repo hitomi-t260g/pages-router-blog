@@ -46,9 +46,6 @@ export default function Home({ posts }: Props) {
       </Head>
 
       <Box position="relative" h="100vh" w="100%">
-        {/* 背景動画 */}
-        <VideoBackground />
-
         {/* ヘッダー (モバイルのみ表示) */}
         <Header />
 
@@ -56,9 +53,26 @@ export default function Home({ posts }: Props) {
         <Sidebar />
 
         {/* メインコンテンツ */}
-        <Box className={sidebarStyles.mainContent}>
+        <Box 
+          className={sidebarStyles.mainContent}
+          position="relative"
+          h="100vh"
+          overflow="hidden"
+          display="flex"
+          flexDirection="column"
+        >
+          {/* 背景動画 */}
+          <VideoBackground />
+          
           {/* Blog タイトル */}
-          <Box as="header" textAlign="center" py={8} mb={4}>
+          <Box 
+            as="header" 
+            textAlign="center" 
+            py={8} 
+            position="relative" 
+            zIndex={1}
+            flexShrink={0}
+          >
             <Heading
               as="h1"
               fontSize="6xl"
@@ -70,7 +84,15 @@ export default function Home({ posts }: Props) {
             </Heading>
           </Box>
 
-          <BlogList initialPosts={posts} />
+          {/* ブログ一覧スクロール領域 */}
+          <Box
+            position="relative"
+            zIndex={1}
+            flex={1}
+            overflow="auto"
+          >
+            <BlogList initialPosts={posts} />
+          </Box>
         </Box>
       </Box>
     </>

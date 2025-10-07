@@ -24,7 +24,7 @@ export default function VideoBackground() {
         width: "100%",
         height: "100%",
         objectFit: "cover",
-        zIndex: -10,
+        zIndex: 0,
         filter: getVideoFilter(),
         transition: "filter 0.5s ease",
       }}
@@ -33,7 +33,7 @@ export default function VideoBackground() {
       muted
       playsInline
     >
-      <source src="/background_trim.mp4" type="video/mp4" />
+      <source src="/background_long.mp4" type="video/mp4" />
     </video>
   );
 }

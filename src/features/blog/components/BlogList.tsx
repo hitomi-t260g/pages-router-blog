@@ -1,7 +1,8 @@
 import { Box, Flex, Heading, Image, Text, VStack } from "@chakra-ui/react";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useCallback } from "react";
 import type { BlogData } from "../types/BlogData";
 import { getBlogPosts } from "../../../infra/contentful/repository";
+import { useInfiniteScroll } from "../hooks/useInfiniteScroll";
 
 interface BlogListProps {
   initialPosts: BlogData[];
@@ -40,26 +41,20 @@ export default function BlogList({ initialPosts }: BlogListProps) {
     }
   }, [loading, hasMore, skip]);
 
-  // スクロールで次ページをロード
-  useEffect(() => {
-    const handleScroll = () => {
-      if (
-        window.innerHeight + document.documentElement.scrollTop + 200 >=
-        document.documentElement.scrollHeight
-      ) {
-        loadMorePosts();
-      }
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [loadMorePosts]);
+  // 無限スクロールフック
+  const { lastElementRef } = useInfiniteScroll({
+    onLoadMore: loadMorePosts,
+    hasMore,
+    loading,
+  });
 
   return (
     <Box as="main">
       <VStack gap={8} pb={20} align="center">
-        {allPosts.map((post) => (
+        {allPosts.map((post, index) => (
           <Box
             key={post.id}
+            ref={index === allPosts.length - 1 ? lastElementRef : null}
             bg="rgba(255,255,255,0.9)"
             backdropFilter="blur(10px)"
             w={{ base: "91.666667%", md: "66.666667%", lg: "50%" }}
