@@ -1,5 +1,6 @@
-import { Box, Flex, Heading, Image, Text, VStack } from "@chakra-ui/react";
+import { Box, Flex, Heading, Image, Text, VStack, Link as ChakraLink } from "@chakra-ui/react";
 import { useCallback, useState } from "react";
+import Link from "next/link";
 import { getBlogPosts } from "../../../infra/contentful/repository";
 import { useInfiniteScroll } from "../hooks/useInfiniteScroll";
 import type { BlogData } from "../types/BlogData";
@@ -52,16 +53,35 @@ export default function BlogList({ initialPosts }: BlogListProps) {
     <Box as="main">
       <VStack gap={8} pb={20} align="center">
         {allPosts.map((post, index) => (
-          <Box
-            key={post.id}
-            ref={index === allPosts.length - 1 ? lastElementRef : null}
-            bg="rgba(255,255,255,0.9)"
-            backdropFilter="blur(10px)"
-            w={{ base: "91.666667%", md: "66.666667%", lg: "50%" }}
-            p={6}
-            borderRadius="2xl"
-            boxShadow="xl"
+          <ChakraLink 
+            asChild 
+            key={post.id} 
+            width={{ base: "91.666667%", md: "66.666667%", lg: "50%" }}
+            display="block"
+            mx="auto"
           >
+            <Link href={`/blog/${post.slug}`}>
+              <Box
+                display="block"
+                ref={index === allPosts.length - 1 ? lastElementRef : null}
+                bg="rgba(255,255,255,0.9)"
+                backdropFilter="blur(10px)"
+                p={6}
+                borderRadius="2xl"
+                boxShadow="xl"
+                cursor="pointer"
+                transition="all 0.3s ease"
+                _hover={{
+                  filter: "brightness(1.75)",
+                  transform: "translateY(-2px)",
+                  boxShadow: "2xl",
+                }}
+                _active={{
+                  filter: "brightness(1.75)",
+                }}
+                textDecoration="none"
+                color="inherit"
+              >
             <Flex>
               <Box
                 flexShrink={0}
@@ -112,8 +132,10 @@ export default function BlogList({ initialPosts }: BlogListProps) {
                   {post.excerpt || "概要がありません"}
                 </Text>
               </Box>
-            </Flex>
-          </Box>
+              </Flex>
+              </Box>
+            </Link>
+          </ChakraLink>
         ))}
 
         {/* ローディング表示 */}

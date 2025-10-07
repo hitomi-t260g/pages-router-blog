@@ -79,6 +79,7 @@ export default function Home({ posts }: Props) {
               fontFamily="serif"
               color="white"
               textShadow="0 4px 8px rgba(0,0,0,0.7)"
+              lineHeight="1.2"
             >
               Blog
             </Heading>
