@@ -4,14 +4,19 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## About This Project
 
-**⚠️ Notice: This is a learning/practice repository created for company training purposes.** 
+**⚠️ Notice: This is a learning/practice repository created for company training purposes.**
 
 This project demonstrates modern web development practices including:
+
 - Next.js with TypeScript
 - Chakra UI component library
 - Contentful CMS integration
 - Responsive design with CSS Modules
 - State management with Jotai
+
+## Demo Page
+
+https://pages-router-blog.vercel.app/
 
 ## Environment Setup
 

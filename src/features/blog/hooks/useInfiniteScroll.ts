@@ -1,4 +1,4 @@
-import { useCallback, useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 interface UseInfiniteScrollOptions {
   onLoadMore: () => void;
@@ -18,27 +18,36 @@ export function useInfiniteScroll({
   threshold = 1.0,
 }: UseInfiniteScrollOptions): UseInfiniteScrollReturn {
   const observer = useRef<IntersectionObserver | null>(null);
+  const [isClient, setIsClient] = useState(false);
+
+  // マウント時にクライアントサイドかどうかを設定
+  // see: https://nextjs.org/docs/messages/react-hydration-error
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   const lastElementRef = useCallback(
     (node: HTMLElement | null) => {
-      if (loading) return;
+      if (!isClient || loading) return;
       if (observer.current) observer.current.disconnect();
 
-      observer.current = new IntersectionObserver(
-        (entries) => {
-          if (entries[0].isIntersecting && hasMore) {
-            onLoadMore();
-          }
-        },
-        {
-          threshold,
-          rootMargin: "100px",
-        },
-      );
+      if (typeof window !== 'undefined' && 'IntersectionObserver' in window) {
+        observer.current = new IntersectionObserver(
+          (entries) => {
+            if (entries[0].isIntersecting && hasMore) {
+              onLoadMore();
+            }
+          },
+          {
+            threshold,
+            rootMargin: "100px",
+          },
+        );
 
-      if (node) observer.current.observe(node);
+        if (node) observer.current.observe(node);
+      }
     },
-    [loading, hasMore, onLoadMore, threshold],
+    [isClient, loading, hasMore, onLoadMore, threshold],
   );
 
   return { lastElementRef };
