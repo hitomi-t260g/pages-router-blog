@@ -1,12 +1,18 @@
 :root {
-  --background: #ffffff;
+  /* Dynamic background controlled by MoodSync */
+  --background: var(--bg-primary, #ffffff);
   --foreground: #171717;
+
+  /* Secondary background for components */
+  --background-secondary: var(--bg-secondary, #f8f9fa);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
+    /* Dark mode will be overridden by mood selection */
+    --background: var(--bg-primary, #0a0a0a);
     --foreground: #ededed;
+    --background-secondary: var(--bg-secondary, #1a1a1a);
   }
 }
 
@@ -26,8 +32,19 @@ body {
 
 * {
   box-sizing: border-box;
-  padding: 0;
+}
+
+div,
+p,
+span,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   margin: 0;
+  padding: 0;
 }
 
 a {

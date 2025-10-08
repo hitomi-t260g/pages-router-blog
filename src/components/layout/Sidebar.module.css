@@ -1,0 +1,26 @@
+.sidebar {
+  /* モバイルデフォルト: 非表示 */
+  display: none;
+}
+
+/* デスクトップ: サイドバーを表示 */
+@media (min-width: 768px) {
+  .sidebar {
+    display: block;
+  }
+}
+
+/* メインコンテンツの調整 */
+.mainContent {
+  /* モバイルデフォルト: マージンなし、ヘッダー分のpadding */
+  margin-left: 0;
+  padding-top: 60px;
+}
+
+@media (min-width: 768px) {
+  .mainContent {
+    /* デスクトップ: サイドバー分のマージン、paddingリセット */
+    margin-left: 300px;
+    padding-top: 0;
+  }
+}

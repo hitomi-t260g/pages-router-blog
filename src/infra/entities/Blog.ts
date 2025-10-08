@@ -1,9 +1,13 @@
-export type ContentfulSys = {
-  id: string;
-};
-
-export type BlogEntity = {
-  sys: ContentfulSys;
+// ContentfulのEntry型を直接使用する代わりにカスタム型を定義
+export interface BlogEntity {
+  sys: {
+    id: string;
+    contentType: {
+      sys: {
+        id: string;
+      };
+    };
+  };
   fields: {
     title: string;
     slug: string;
@@ -24,4 +28,4 @@ export type BlogEntity = {
     tags?: string[];
     publishDate?: string;
   };
-};
+}

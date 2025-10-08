@@ -1,0 +1,11 @@
+.header {
+  /* モバイルデフォルト: 表示 */
+  display: block;
+}
+
+/* デスクトップ: ヘッダーを非表示 */
+@media (min-width: 768px) {
+  .header {
+    display: none;
+  }
+}
