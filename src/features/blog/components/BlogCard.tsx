@@ -25,8 +25,8 @@ export default function BlogCard({ post }: BlogCardProps) {
       <Link href={`/blog/${post.slug}`} style={{ textDecoration: "none" }}>
         <VStack alignItems="stretch" gap={0}>
           {/* Cover Image */}
-          {post.coverUrl && (
-            <Box position="relative" overflow="hidden">
+          <Box position="relative" overflow="hidden">
+            {post.coverUrl ? (
               <Image
                 src={post.coverUrl}
                 alt={post.title}
@@ -35,18 +35,41 @@ export default function BlogCard({ post }: BlogCardProps) {
                 objectFit="cover"
                 transition="transform 0.3s ease"
                 _hover={{ transform: "scale(1.05)" }}
+                onError={(e) => {
+                  // 画像読み込み失敗時のフォールバック
+                  const target = e.target as HTMLImageElement;
+                  target.style.display = 'none';
+                  const fallback = target.nextElementSibling as HTMLElement;
+                  if (fallback) {
+                    fallback.style.display = 'flex';
+                  }
+                }}
               />
-              {/* Gradient Overlay */}
-              <Box
-                position="absolute"
-                bottom={0}
-                left={0}
-                right={0}
-                height="60px"
-                bgGradient="linear(to-t, rgba(0,0,0,0.6), transparent)"
-              />
+            ) : null}
+            {/* フォールバック表示 */}
+            <Box
+              w="full"
+              h="240px"
+              bg="gray.100"
+              display={post.coverUrl ? "none" : "flex"}
+              alignItems="center"
+              justifyContent="center"
+              color="gray.500"
+              fontSize="sm"
+              fontWeight="medium"
+            >
+              画像なし
             </Box>
-          )}
+            {/* Gradient Overlay */}
+            <Box
+              position="absolute"
+              bottom={0}
+              left={0}
+              right={0}
+              height="60px"
+              bgGradient="linear(to-t, rgba(0,0,0,0.6), transparent)"
+            />
+          </Box>
 
           {/* Content */}
           <VStack alignItems="stretch" p={6} gap={4}>
