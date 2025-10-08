@@ -1,4 +1,17 @@
+# My Blog
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/pages/api-reference/create-next-app) with Contentful CMS integration for blog functionality.
+
+## About This Project
+
+**⚠️ Notice: This is a learning/practice repository created for company training purposes.** 
+
+This project demonstrates modern web development practices including:
+- Next.js with TypeScript
+- Chakra UI component library
+- Contentful CMS integration
+- Responsive design with CSS Modules
+- State management with Jotai
 
 ## Environment Setup
 
@@ -41,19 +54,65 @@ You can start editing the page by modifying `pages/index.tsx`. The page auto-upd
 
 The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) instead of React pages.
 
-This project uses [`next/font`](https://nextjs.org/docs/pages/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Project Structure & Directory Organization
 
-## Learn More
+This project follows a feature-based architecture with clear separation of concerns:
 
-To learn more about Next.js, take a look at the following resources:
+### Core Principles
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn-pages-router) - an interactive Next.js tutorial.
+**1. Feature-Based Organization**
+- Code is organized by functionality rather than by file type
+- Each feature contains its own components, hooks, types, and utilities
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+**2. Clear Separation of Concerns**
+- `features/` - Page-specific code
+- `commons/` - Shared code across multiple pages
+- `components/` - Layout components (transitioning to commons)
 
-## Deploy on Vercel
+### Directory Structure
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```
+src/
+├── commons/           # Shared functionality across pages
+│   ├── layout/        # Header, Sidebar components
+│   ├── state/         # Global state management (Jotai atoms)
+│   └── theme/         # Theme configuration and mood system
+├── features/          # Feature-specific code
+│   └── blog/          # Blog-related functionality
+│       ├── components/    # Blog-only components
+│       ├── hooks/         # Blog-specific hooks
+│       ├── types/         # Blog type definitions
+│       └── utils/         # Blog utility functions
+├── components/        # Legacy layout components (being migrated)
+│   └── layout/        # → Moving to commons/layout/
+├── infra/            # External service integrations
+│   └── contentful/   # Contentful CMS client and types
+├── pages/            # Next.js page routes
+└── styles/           # Global styles and CSS modules
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/pages/building-your-application/deploying) for more details.
+### Component Placement Guidelines
+
+**Rule 1: Single Page Usage**
+- If a component is used only on one page → `features/[page]/components/`
+- Example: `BlogList`, `VideoBackground` → `features/blog/components/`
+
+**Rule 2: Multiple Page Usage**
+- If a component is used on 2+ pages → `commons/[domain]/components/`
+- Example: `Header`, `Sidebar` → `commons/layout/`
+
+**Rule 3: Avoid Premature Abstraction**
+- Don't move components to `commons/` based on "might be reused"
+- Start specific (`features/`), generalize when actually needed
+
+### State Management
+
+- **Global State**: `commons/state/` (using Jotai)
+- **Feature State**: `features/[feature]/hooks/`
+- **Component State**: Local useState/useReducer
+
+### Styling Approach
+
+- **Global Styles**: `styles/globals.css`
+- **Component Styles**: CSS Modules (`.module.css`)
+- **UI Components**: Chakra UI with custom theming
