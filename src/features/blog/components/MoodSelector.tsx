@@ -3,9 +3,9 @@ import { useAtom } from "jotai";
 import { Annoyed, Smile } from "lucide-react";
 import { type Mood, moodAtom } from "@/commons/state/moodAtom";
 
-const MOODS: { key: Mood; label: string; emoji: string }[] = [
-  { key: "calm", label: "穏やか", emoji: "😌" },
-  { key: "energetic", label: "元気", emoji: "🚀" },
+const MOODS: { key: Mood; label: string; }[] = [
+  { key: "calm", label: "穏やか" },
+  { key: "energetic", label: "元気" },
 ];
 
 export default function MoodSelector() {
@@ -21,7 +21,7 @@ export default function MoodSelector() {
       transition="all 0.3s ease"
     >
       <VStack gap={4} alignItems="center">
-        <Text fontSize="lg" fontWeight="semibold" color="brand.700">
+        <Text fontSize="lg" fontWeight="semibold" color="blackAlpha.700">
           今日の気分は？
         </Text>
         <HStack gap={2} flexWrap="wrap">
@@ -29,9 +29,11 @@ export default function MoodSelector() {
             <Button
               key={m.key}
               onClick={() => setMood(m.key)}
-              variant={mood === m.key ? "solid" : "surface"}
+              variant={mood === m.key ? "surface" : "outline"}
               colorPalette="gray"
               size="md"
+              color={mood === m.key ? "white": "blackAlpha.700"}
+              _hover={{ color: "white" }}
             >
               {m.key === "calm" ? <Annoyed /> : <Smile />}
               {m.label}

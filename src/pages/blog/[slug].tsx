@@ -81,7 +81,7 @@ export default function BlogPostPage({ post }: Props) {
           {/* パンくずナビゲーション */}
           <HStack gap={2} fontSize="sm" color="gray.600">
             <Link href="/">
-              <Text color="brand.600" _hover={{ color: "brand.700" }}>
+              <Text color="blackAlpha.600" _hover={{ color: "blackAlpha.700" }}>
                 Home
               </Text>
             </Link>
@@ -107,7 +107,7 @@ export default function BlogPostPage({ post }: Props) {
               <Heading
                 as="h1"
                 size="4xl"
-                color="brand.700"
+                color="blackAlpha.700"
                 textAlign="center"
                 lineHeight="shorter"
               >
@@ -145,8 +145,8 @@ export default function BlogPostPage({ post }: Props) {
                       key={tag}
                       px={4}
                       py={2}
-                      bg="brand.100"
-                      color="brand.700"
+                      bg="blackAlpha.100"
+                      color="blackAlpha.700"
                       fontSize="sm"
                       borderRadius="full"
                       fontWeight="medium"
@@ -161,9 +161,9 @@ export default function BlogPostPage({ post }: Props) {
               {post.excerpt && (
                 <Box
                   p={6}
-                  bg="brand.50"
+                  bg="blackAlpha.50"
                   borderLeft="4px solid"
-                  borderLeftColor="brand.500"
+                  borderLeftColor="blackAlpha.500"
                   borderRadius="md"
                   fontStyle="italic"
                   fontSize="lg"
@@ -180,17 +180,17 @@ export default function BlogPostPage({ post }: Props) {
                 color="gray.800"
                 css={{
                   "& h1, & h2, & h3": {
-                    color: "var(--brand-600)",
+                    color: "var(--blackAlpha-600)",
                     fontWeight: "bold",
                     marginTop: "2rem",
                     marginBottom: "1rem",
                   },
                   "& a": {
-                    color: "var(--brand-500)",
+                    color: "var(--blackAlpha-500)",
                     textDecoration: "underline",
                   },
                   "& a:hover": {
-                    color: "var(--brand-600)",
+                    color: "var(--blackAlpha-600)",
                   },
                 }}
               >
@@ -212,10 +212,10 @@ export default function BlogPostPage({ post }: Props) {
           >
             <Link href="/blog">
               <Text
-                color="brand.600"
+                color="blackAlpha.600"
                 fontSize="lg"
                 fontWeight="semibold"
-                _hover={{ color: "brand.700", textDecoration: "underline" }}
+                _hover={{ color: "blackAlpha.700", textDecoration: "underline" }}
               >
                 ← ブログ一覧に戻る
               </Text>

@@ -25,12 +25,12 @@ export default function Sidebar() {
             as="h1"
             fontSize="2xl"
             fontFamily="serif"
-            color="brand.600"
+            color="blackAlpha.800"
             mb={2}
           >
             My Blog
           </Heading>
-          <Text fontSize="sm" color="gray.600">
+          <Text fontSize="sm" color="blackAlpha.800">
             気分に合わせたブログ体験
           </Text>
         </Box>

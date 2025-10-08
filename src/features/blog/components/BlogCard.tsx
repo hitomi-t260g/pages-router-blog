@@ -76,8 +76,8 @@ export default function BlogCard({ post }: BlogCardProps) {
             <Heading
               as="h2"
               size="lg"
-              color="brand.700"
-              _hover={{ color: "brand.600" }}
+              color="blackAlpha.700"
+              _hover={{ color: "blackAlpha.600" }}
               transition="color 0.2s ease"
               fontWeight="bold"
               lineHeight="shorter"
@@ -128,17 +128,17 @@ export default function BlogCard({ post }: BlogCardProps) {
                     key={tag}
                     px={3}
                     py={1}
-                    bg="brand.100"
-                    color="brand.700"
+                    bg="blackAlpha.100"
+                    color="blackAlpha.700"
                     fontSize="xs"
                     borderRadius="full"
                     fontWeight="medium"
                     border="1px solid"
-                    borderColor="brand.200"
+                    borderColor="blackAlpha.200"
                     transition="all 0.2s ease"
                     _hover={{
-                      bg: "brand.200",
-                      borderColor: "brand.300",
+                      bg: "blackAlpha.200",
+                      borderColor: "blackAlpha.300",
                     }}
                   >
                     #{tag}
