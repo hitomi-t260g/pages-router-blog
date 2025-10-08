@@ -32,7 +32,7 @@ export function useInfiniteScroll({
         },
         {
           threshold,
-          rootMargin: "100px", // Start loading 100px before reaching the element
+          rootMargin: "100px",
         },
       );
 
