@@ -3,7 +3,7 @@ import { useAtom } from "jotai";
 import { Annoyed, Smile } from "lucide-react";
 import { type Mood, moodAtom } from "@/commons/state/moodAtom";
 
-const MOODS: { key: Mood; label: string; }[] = [
+const MOODS: { key: Mood; label: string }[] = [
   { key: "calm", label: "穏やか" },
   { key: "energetic", label: "元気" },
 ];

@@ -8,4 +8,5 @@ export type BlogData = {
   authorName: string | null;
   tags: string[] | null;
   publishDate: string | null;
+  formattedPublishDate: string | null;
 };

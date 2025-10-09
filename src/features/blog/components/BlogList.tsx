@@ -71,8 +71,9 @@ export default function BlogList({ initialPosts }: BlogListProps) {
         ))}
 
         {/* ローディング表示（Skeleton） */}
-        {loading && hasMore &&
-         ["skeleton-1", "skeleton-2", "skeleton-3"].map((key) => (
+        {loading &&
+          hasMore &&
+          ["skeleton-1", "skeleton-2", "skeleton-3"].map((key) => (
             <Box
               key={`skeleton-loading-${key}`}
               width={{ base: "91.666667%", md: "66.666667%", lg: "50%" }}
@@ -97,8 +98,7 @@ export default function BlogList({ initialPosts }: BlogListProps) {
                 </Box>
               </Flex>
             </Box>
-          ))
-        }
+          ))}
 
         {/* 終了メッセージ */}
         {!hasMore && allPosts.length > 0 && (

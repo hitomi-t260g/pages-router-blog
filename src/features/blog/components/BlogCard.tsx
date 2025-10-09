@@ -38,10 +38,10 @@ export default function BlogCard({ post }: BlogCardProps) {
                 onError={(e) => {
                   // 画像読み込み失敗時のフォールバック
                   const target = e.target as HTMLImageElement;
-                  target.style.display = 'none';
+                  target.style.display = "none";
                   const fallback = target.nextElementSibling as HTMLElement;
                   if (fallback) {
-                    fallback.style.display = 'flex';
+                    fallback.style.display = "flex";
                   }
                 }}
               />
@@ -106,16 +106,10 @@ export default function BlogCard({ post }: BlogCardProps) {
               {post.authorName && (
                 <Text fontWeight="medium">By {post.authorName}</Text>
               )}
-              {post.publishDate && (
+              {post.formattedPublishDate && (
                 <>
                   {post.authorName && <Text>•</Text>}
-                  <Text>
-                    {new Date(post.publishDate).toLocaleDateString("ja-JP", {
-                      year: "numeric",
-                      month: "long",
-                      day: "numeric",
-                    })}
-                  </Text>
+                  <Text>{post.formattedPublishDate}</Text>
                 </>
               )}
             </HStack>
