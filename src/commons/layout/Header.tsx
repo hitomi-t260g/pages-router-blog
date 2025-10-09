@@ -17,7 +17,7 @@ export default function Header() {
       zIndex={1000}
     >
       <Flex h="full" alignItems="center" justifyContent="space-between" px={4}>
-        <Heading as="h1" fontSize="xl" fontFamily="serif" color="white">
+        <Heading as="h1" fontSize="xl" fontFamily="serif" color="var(--heading-color)">
           My Blog
         </Heading>
 

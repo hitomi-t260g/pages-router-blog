@@ -17,7 +17,7 @@ export default function MoodSelector() {
       bg="var(--background-secondary, #f8f9fa)"
       borderRadius="xl"
       border="2px solid"
-      borderColor="brand.200"
+      borderColor="blackAlpha.700"
       transition="all 0.3s ease"
     >
       <VStack gap={4} alignItems="center">

@@ -25,7 +25,7 @@ export default function Sidebar() {
             as="h1"
             fontSize="2xl"
             fontFamily="serif"
-            color="blackAlpha.800"
+            color="var(--heading-color)"
             mb={2}
           >
             My Blog
