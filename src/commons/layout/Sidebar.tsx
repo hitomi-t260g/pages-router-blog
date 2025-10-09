@@ -51,7 +51,7 @@ export default function Sidebar() {
           borderColor="gray.200"
         >
           <Text fontSize="xs" color="gray.500">
-            © {new Date().getFullYear()} My Blog
+            © {new Date().toLocaleDateString("ja-JP", { year: "numeric" })} My Blog
           </Text>
         </Box>
       </VStack>

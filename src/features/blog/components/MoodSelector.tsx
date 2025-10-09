@@ -29,11 +29,9 @@ export default function MoodSelector() {
             <Button
               key={m.key}
               onClick={() => setMood(m.key)}
-              variant={mood === m.key ? "surface" : "outline"}
+              variant={mood === m.key ? "solid" : "outline"}
               colorPalette="gray"
               size="md"
-              color={mood === m.key ? "white": "blackAlpha.700"}
-              _hover={{ color: "white" }}
             >
               {m.key === "calm" ? <Annoyed /> : <Smile />}
               {m.label}

@@ -130,7 +130,11 @@ export default function BlogPostPage({ post }: Props) {
                       <Text as="span" fontWeight="semibold">
                         Published:
                       </Text>{" "}
-                      {new Date(post.publishDate).toLocaleDateString()}
+                      {new Date(post.publishDate).toLocaleDateString("ja-JP", {
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
+                      })}
                     </Text>
                   )}
                 </HStack>
