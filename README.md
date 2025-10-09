@@ -4,7 +4,7 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## About This Project
 
-**⚠️ Notice: This is a learning/practice repository created for company training purposes.**
+**⚠️ Notice: This is a learning/practice repository created for company sample purposes.**
 
 This project demonstrates modern web development practices including:
 
