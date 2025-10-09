@@ -31,7 +31,7 @@ export function useInfiniteScroll({
       if (!isClient || loading) return;
       if (observer.current) observer.current.disconnect();
 
-      if (typeof window !== 'undefined' && 'IntersectionObserver' in window) {
+      if (typeof window !== "undefined" && "IntersectionObserver" in window) {
         observer.current = new IntersectionObserver(
           (entries) => {
             if (entries[0].isIntersecting && hasMore) {

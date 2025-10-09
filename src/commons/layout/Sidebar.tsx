@@ -1,8 +1,15 @@
 import { Box, Heading, Text, VStack } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
 import MoodSelector from "../../features/blog/components/MoodSelector";
 import styles from "./Sidebar.module.css";
 
 export default function Sidebar() {
+  const [currentYear, setCurrentYear] = useState<string>("");
+
+  useEffect(() => {
+    setCurrentYear(new Date().toLocaleDateString("ja-JP", { year: "numeric" }));
+  }, []);
+
   return (
     <Box
       className={styles.sidebar}
@@ -51,7 +58,7 @@ export default function Sidebar() {
           borderColor="gray.200"
         >
           <Text fontSize="xs" color="gray.500">
-            © {new Date().toLocaleDateString("ja-JP", { year: "numeric" })} My Blog
+            © {currentYear || "2024"} My Blog
           </Text>
         </Box>
       </VStack>

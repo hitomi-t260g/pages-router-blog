@@ -125,16 +125,12 @@ export default function BlogPostPage({ post }: Props) {
                       {post.authorName}
                     </Text>
                   )}
-                  {post.publishDate && (
+                  {post.formattedPublishDate && (
                     <Text>
                       <Text as="span" fontWeight="semibold">
                         Published:
                       </Text>{" "}
-                      {new Date(post.publishDate).toLocaleDateString("ja-JP", {
-                        year: "numeric",
-                        month: "long",
-                        day: "numeric",
-                      })}
+                      {post.formattedPublishDate}
                     </Text>
                   )}
                 </HStack>
@@ -219,7 +215,10 @@ export default function BlogPostPage({ post }: Props) {
                 color="blackAlpha.600"
                 fontSize="lg"
                 fontWeight="semibold"
-                _hover={{ color: "blackAlpha.700", textDecoration: "underline" }}
+                _hover={{
+                  color: "blackAlpha.700",
+                  textDecoration: "underline",
+                }}
               >
                 ← ブログ一覧に戻る
               </Text>
