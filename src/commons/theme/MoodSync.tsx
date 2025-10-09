@@ -16,6 +16,7 @@ const PALETTES: Record<Mood, Record<string, string>> = {
     "brand-900": "#0c4a6e",
     "bg-primary": "#f0f9ff",
     "bg-secondary": "#e0f2fe",
+    "heading-color": "#0369a1",
   },
   energetic: {
     "brand-50": "#fef2f2",
@@ -30,6 +31,7 @@ const PALETTES: Record<Mood, Record<string, string>> = {
     "brand-900": "#7f1d1d",
     "bg-primary": "#fef2f2",
     "bg-secondary": "#fee2e2",
+    "heading-color": "#991b1b",
   },
 };
 

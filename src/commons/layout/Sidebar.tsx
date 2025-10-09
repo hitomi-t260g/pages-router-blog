@@ -25,12 +25,12 @@ export default function Sidebar() {
             as="h1"
             fontSize="2xl"
             fontFamily="serif"
-            color="brand.600"
+            color="var(--heading-color)"
             mb={2}
           >
             My Blog
           </Heading>
-          <Text fontSize="sm" color="gray.600">
+          <Text fontSize="sm" color="blackAlpha.800">
             気分に合わせたブログ体験
           </Text>
         </Box>
@@ -51,7 +51,7 @@ export default function Sidebar() {
           borderColor="gray.200"
         >
           <Text fontSize="xs" color="gray.500">
-            © {new Date().getFullYear()} My Blog
+            © {new Date().toLocaleDateString("ja-JP", { year: "numeric" })} My Blog
           </Text>
         </Box>
       </VStack>

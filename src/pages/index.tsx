@@ -1,9 +1,9 @@
 import { Box, Heading } from "@chakra-ui/react";
 import type { GetStaticProps } from "next";
 import Head from "next/head";
-import Header from "../components/layout/Header";
-import Sidebar from "../components/layout/Sidebar";
-import sidebarStyles from "../components/layout/Sidebar.module.css";
+import Header from "../commons/layout/Header";
+import Sidebar from "../commons/layout/Sidebar";
+import sidebarStyles from "../commons/layout/Sidebar.module.css";
 import BlogList from "../features/blog/components/BlogList";
 import VideoBackground from "../features/blog/components/VideoBackground";
 import type { BlogData } from "../features/blog/types/BlogData";
