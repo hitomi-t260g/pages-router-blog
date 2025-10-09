@@ -72,7 +72,6 @@ This project follows a feature-based architecture with clear separation of conce
 **2. Clear Separation of Concerns**
 - `features/` - Page-specific code
 - `commons/` - Shared code across multiple pages
-- `components/` - Layout components (transitioning to commons)
 
 ### Directory Structure
 
@@ -88,8 +87,6 @@ src/
 │       ├── hooks/         # Blog-specific hooks
 │       ├── types/         # Blog type definitions
 │       └── utils/         # Blog utility functions
-├── components/        # Legacy layout components (being migrated)
-│   └── layout/        # → Moving to commons/layout/
 ├── infra/            # External service integrations
 │   └── contentful/   # Contentful CMS client and types
 ├── pages/            # Next.js page routes
